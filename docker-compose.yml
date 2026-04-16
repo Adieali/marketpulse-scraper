@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  scraper:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./web/data:/app/web/data
+      - ./config:/app/config
+    environment:
+      - MARKET=${MARKET:-all}
+      - PERIOD=${PERIOD:-1y}
+      - PROXY_ENABLED=${PROXY_ENABLED:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    command: scrape --market ${MARKET:-all} --period ${PERIOD:-1y}
+
+  # Optional: local static server to preview the dashboard
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+    profiles:
+      - web

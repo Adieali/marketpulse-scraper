@@ -1,0 +1,33 @@
+us_tickers:
+  - AAPL
+  - MSFT
+  - GOOGL
+  - AMZN
+  - NVDA
+  - META
+  - TSLA
+  - JPM
+  - JNJ
+  - V
+  - SPY
+  - QQQ
+
+eu_tickers:
+  - MC.PA    # LVMH
+  - TTE.PA   # TotalEnergies
+  - SAN.PA   # Sanofi
+  - AIR.PA   # Airbus
+  - BNP.PA   # BNP Paribas
+  - OR.PA    # L'Oréal
+  - SAP.DE   # SAP
+  - SIE.DE   # Siemens
+  - BMW.DE   # BMW
+
+crypto_coins:
+  - bitcoin
+  - ethereum
+  - binancecoin
+  - solana
+  - ripple
+  - cardano
+  - dogecoin

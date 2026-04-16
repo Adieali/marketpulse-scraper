@@ -1,0 +1,4 @@
+proxies:
+  # Add your proxies here (HTTP, HTTPS or SOCKS5)
+  # - http://user:password@proxy1.example.com:8080
+  # - socks5://user:password@proxy2.example.com:1080
