@@ -1,0 +1,92 @@
+﻿[
+  {
+    "quote": { "ticker": "AAPL", "name": "Apple Inc.", "price": 189.84, "currency": "USD", "change_pct": 0.82, "volume": 52340000, "market_cap": 2940000000000, "market": "US" },
+    "fundamentals": { "pe_ratio": 29.2, "eps": 6.51, "dividend_yield": 0.55, "beta": 1.21 },
+    "indicators": { "latest": { "close": 189.84, "ma20": 185.12, "ma50": 180.45, "ma200": 172.38, "rsi": 61.4, "macd": 2.31, "bb_upper": 195.20, "bb_lower": 175.04 }, "summary": { "trend": "Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "MSFT", "name": "Microsoft Corp.", "price": 415.32, "currency": "USD", "change_pct": 1.14, "volume": 22180000, "market_cap": 3090000000000, "market": "US" },
+    "fundamentals": { "pe_ratio": 36.8, "eps": 11.28, "dividend_yield": 0.72, "beta": 0.92 },
+    "indicators": { "latest": { "close": 415.32, "ma20": 408.50, "ma50": 398.20, "ma200": 370.15, "rsi": 63.8, "macd": 5.12, "bb_upper": 428.40, "bb_lower": 388.60 }, "summary": { "trend": "Strong Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "NVDA", "name": "NVIDIA Corp.", "price": 875.40, "currency": "USD", "change_pct": 3.22, "volume": 44500000, "market_cap": 2160000000000, "market": "US" },
+    "fundamentals": { "pe_ratio": 68.5, "eps": 12.78, "dividend_yield": 0.03, "beta": 1.74 },
+    "indicators": { "latest": { "close": 875.40, "ma20": 842.10, "ma50": 790.55, "ma200": 620.30, "rsi": 71.2, "macd": 22.4, "bb_upper": 912.80, "bb_lower": 771.40 }, "summary": { "trend": "Strong Uptrend", "rsi_signal": "Overbought", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "GOOGL", "name": "Alphabet Inc.", "price": 178.52, "currency": "USD", "change_pct": -0.34, "volume": 18920000, "market_cap": 2200000000000, "market": "US" },
+    "fundamentals": { "pe_ratio": 25.3, "eps": 7.06, "dividend_yield": 0.0, "beta": 1.05 },
+    "indicators": { "latest": { "close": 178.52, "ma20": 176.80, "ma50": 172.30, "ma200": 160.45, "rsi": 52.1, "macd": 1.85, "bb_upper": 184.20, "bb_lower": 169.40 }, "summary": { "trend": "Uptrend", "rsi_signal": "Neutral", "macd_signal": "Neutral" } }
+  },
+  {
+    "quote": { "ticker": "AMZN", "name": "Amazon.com Inc.", "price": 198.74, "currency": "USD", "change_pct": 0.56, "volume": 31200000, "market_cap": 2080000000000, "market": "US" },
+    "fundamentals": { "pe_ratio": 44.1, "eps": 4.50, "dividend_yield": 0.0, "beta": 1.33 },
+    "indicators": { "latest": { "close": 198.74, "ma20": 194.30, "ma50": 188.90, "ma200": 175.60, "rsi": 58.7, "macd": 3.20, "bb_upper": 207.50, "bb_lower": 181.10 }, "summary": { "trend": "Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "META", "name": "Meta Platforms", "price": 512.80, "currency": "USD", "change_pct": -1.28, "volume": 15600000, "market_cap": 1310000000000, "market": "US" },
+    "fundamentals": { "pe_ratio": 28.4, "eps": 18.06, "dividend_yield": 0.0, "beta": 1.25 },
+    "indicators": { "latest": { "close": 512.80, "ma20": 520.40, "ma50": 498.20, "ma200": 450.10, "rsi": 44.3, "macd": -3.80, "bb_upper": 545.60, "bb_lower": 495.20 }, "summary": { "trend": "Sideways", "rsi_signal": "Neutral", "macd_signal": "Bearish" } }
+  },
+  {
+    "quote": { "ticker": "TSLA", "name": "Tesla Inc.", "price": 248.50, "currency": "USD", "change_pct": -2.11, "volume": 98400000, "market_cap": 792000000000, "market": "US" },
+    "fundamentals": { "pe_ratio": 52.8, "eps": 4.71, "dividend_yield": 0.0, "beta": 2.18 },
+    "indicators": { "latest": { "close": 248.50, "ma20": 261.30, "ma50": 255.80, "ma200": 235.40, "rsi": 38.2, "macd": -5.60, "bb_upper": 285.70, "bb_lower": 236.90 }, "summary": { "trend": "Downtrend", "rsi_signal": "Oversold", "macd_signal": "Bearish" } }
+  },
+  {
+    "quote": { "ticker": "JPM", "name": "JPMorgan Chase", "price": 208.35, "currency": "USD", "change_pct": 0.43, "volume": 9820000, "market_cap": 598000000000, "market": "US" },
+    "fundamentals": { "pe_ratio": 12.4, "eps": 16.81, "dividend_yield": 2.31, "beta": 1.12 },
+    "indicators": { "latest": { "close": 208.35, "ma20": 205.10, "ma50": 198.60, "ma200": 185.30, "rsi": 55.8, "macd": 1.92, "bb_upper": 215.40, "bb_lower": 194.80 }, "summary": { "trend": "Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "SPY", "name": "SPDR S&P 500 ETF", "price": 521.14, "currency": "USD", "change_pct": 0.28, "volume": 76200000, "market_cap": 0, "market": "US" },
+    "fundamentals": { "pe_ratio": 24.8, "eps": 21.01, "dividend_yield": 1.28, "beta": 1.0 },
+    "indicators": { "latest": { "close": 521.14, "ma20": 515.30, "ma50": 505.80, "ma200": 470.20, "rsi": 57.4, "macd": 4.10, "bb_upper": 535.80, "bb_lower": 494.80 }, "summary": { "trend": "Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "QQQ", "name": "Invesco QQQ ETF", "price": 446.82, "currency": "USD", "change_pct": 0.61, "volume": 42100000, "market_cap": 0, "market": "US" },
+    "fundamentals": { "pe_ratio": 33.2, "eps": 13.46, "dividend_yield": 0.52, "beta": 1.18 },
+    "indicators": { "latest": { "close": 446.82, "ma20": 438.60, "ma50": 425.10, "ma200": 390.40, "rsi": 60.2, "macd": 5.80, "bb_upper": 462.40, "bb_lower": 414.80 }, "summary": { "trend": "Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "OR", "name": "L'Oreal S.A.", "price": 412.50, "currency": "EUR", "change_pct": 0.68, "volume": 628000, "market_cap": 230000000000, "market": "EU" },
+    "fundamentals": { "pe_ratio": 35.6, "eps": 11.59, "dividend_yield": 1.85, "beta": 0.71 },
+    "indicators": { "latest": { "close": 412.50, "ma20": 408.20, "ma50": 398.40, "ma200": 380.10, "rsi": 56.8, "macd": 2.40, "bb_upper": 425.80, "bb_lower": 390.60 }, "summary": { "trend": "Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "ASML", "name": "ASML Holding N.V.", "price": 876.40, "currency": "EUR", "change_pct": 1.92, "volume": 812000, "market_cap": 344000000000, "market": "EU" },
+    "fundamentals": { "pe_ratio": 43.2, "eps": 20.29, "dividend_yield": 0.89, "beta": 1.32 },
+    "indicators": { "latest": { "close": 876.40, "ma20": 851.20, "ma50": 820.80, "ma200": 740.50, "rsi": 64.1, "macd": 14.80, "bb_upper": 912.60, "bb_lower": 789.80 }, "summary": { "trend": "Strong Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "MC", "name": "LVMH Moet Hennessy", "price": 682.60, "currency": "EUR", "change_pct": -0.82, "volume": 492000, "market_cap": 342000000000, "market": "EU" },
+    "fundamentals": { "pe_ratio": 22.8, "eps": 29.94, "dividend_yield": 1.65, "beta": 0.88 },
+    "indicators": { "latest": { "close": 682.60, "ma20": 695.40, "ma50": 710.20, "ma200": 730.80, "rsi": 41.5, "macd": -8.20, "bb_upper": 724.80, "bb_lower": 666.00 }, "summary": { "trend": "Downtrend", "rsi_signal": "Neutral", "macd_signal": "Bearish" } }
+  },
+  {
+    "quote": { "ticker": "TTE", "name": "TotalEnergies SE", "price": 62.48, "currency": "EUR", "change_pct": 0.35, "volume": 5280000, "market_cap": 150000000000, "market": "EU" },
+    "fundamentals": { "pe_ratio": 10.2, "eps": 6.13, "dividend_yield": 3.82, "beta": 0.72 },
+    "indicators": { "latest": { "close": 62.48, "ma20": 61.90, "ma50": 61.20, "ma200": 59.40, "rsi": 54.2, "macd": 0.42, "bb_upper": 64.80, "bb_lower": 59.00 }, "summary": { "trend": "Uptrend", "rsi_signal": "Neutral", "macd_signal": "Neutral" } }
+  },
+  {
+    "quote": { "ticker": "SAP", "name": "SAP SE", "price": 196.72, "currency": "EUR", "change_pct": 1.12, "volume": 2140000, "market_cap": 236000000000, "market": "EU" },
+    "fundamentals": { "pe_ratio": 48.3, "eps": 4.07, "dividend_yield": 0.92, "beta": 0.95 },
+    "indicators": { "latest": { "close": 196.72, "ma20": 192.30, "ma50": 185.80, "ma200": 168.40, "rsi": 62.7, "macd": 3.20, "bb_upper": 204.80, "bb_lower": 179.80 }, "summary": { "trend": "Strong Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "SIE", "name": "Siemens AG", "price": 184.30, "currency": "EUR", "change_pct": -0.54, "volume": 1820000, "market_cap": 148000000000, "market": "EU" },
+    "fundamentals": { "pe_ratio": 18.6, "eps": 9.91, "dividend_yield": 2.14, "beta": 1.18 },
+    "indicators": { "latest": { "close": 184.30, "ma20": 186.40, "ma50": 182.10, "ma200": 172.80, "rsi": 48.3, "macd": -0.85, "bb_upper": 196.20, "bb_lower": 176.60 }, "summary": { "trend": "Sideways", "rsi_signal": "Neutral", "macd_signal": "Bearish" } }
+  },
+  {
+    "quote": { "ticker": "ADS", "name": "adidas AG", "price": 234.50, "currency": "EUR", "change_pct": 2.10, "volume": 1640000, "market_cap": 39000000000, "market": "EU" },
+    "fundamentals": { "pe_ratio": 28.4, "eps": 8.26, "dividend_yield": 1.42, "beta": 1.10 },
+    "indicators": { "latest": { "close": 234.50, "ma20": 224.80, "ma50": 218.30, "ma200": 195.40, "rsi": 67.8, "macd": 5.60, "bb_upper": 242.80, "bb_lower": 206.80 }, "summary": { "trend": "Strong Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  },
+  {
+    "quote": { "ticker": "AIR", "name": "Airbus SE", "price": 158.80, "currency": "EUR", "change_pct": 0.89, "volume": 1380000, "market_cap": 122000000000, "market": "EU" },
+    "fundamentals": { "pe_ratio": 24.1, "eps": 6.59, "dividend_yield": 1.10, "beta": 1.28 },
+    "indicators": { "latest": { "close": 158.80, "ma20": 155.40, "ma50": 149.80, "ma200": 138.60, "rsi": 59.4, "macd": 2.10, "bb_upper": 165.20, "bb_lower": 145.60 }, "summary": { "trend": "Uptrend", "rsi_signal": "Neutral", "macd_signal": "Bullish" } }
+  }
+]
