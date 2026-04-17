@@ -1,0 +1,48 @@
+﻿name: Refresh Market Data
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # Tous les jours à 6h UTC
+    - cron: "0 18 * * *"  # Tous les jours à 18h UTC
+  workflow_dispatch:        # Déclenchement manuel possible
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+          playwright install chromium --with-deps
+
+      - name: Run scraper — all markets
+        run: |
+          mp-scraper scrape --market all --period 1y --web-dir web/data --output data
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+
+      - name: Commit & push updated data
+        run: |
+          git config user.email "eric56892@gmail.com"
+          git config user.name "Adieali"
+          git add web/data/stocks.json web/data/crypto.json web/data/meta.json
+          if git diff --staged --quiet; then
+            echo "Aucune modification — données déjà à jour."
+          else
+            git commit -m "chore: refresh market data $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
