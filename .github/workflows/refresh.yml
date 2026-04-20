@@ -14,7 +14,7 @@ jobs:
 
     steps:
       # ─────────────────────────────────────────────
-      # Checkout
+      # Checkout repo
       # ─────────────────────────────────────────────
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -29,7 +29,7 @@ jobs:
           cache: "pip"
 
       # ─────────────────────────────────────────────
-      # Install deps
+      # Install dependencies
       # ─────────────────────────────────────────────
       - name: Install dependencies
         run: |
@@ -40,56 +40,27 @@ jobs:
           playwright install chromium --with-deps
 
       # ─────────────────────────────────────────────
-      # DEBUG: structure du projet
+      # Run all spiders
       # ─────────────────────────────────────────────
-      - name: Debug project structure
-        run: |
-          echo "=== TREE ==="
-          ls -R
-
-      # ─────────────────────────────────────────────
-      # DEBUG: vérifier que le module est importable
-      # ─────────────────────────────────────────────
-      - name: Debug Python imports
-        run: |
-          python -c "import sys; print(sys.path)"
-          python -c "import marketpulse; print('marketpulse import OK')"
-
-      # ─────────────────────────────────────────────
-      # DEBUG: vérifier spiders détectés
-      # ─────────────────────────────────────────────
-      - name: Debug Scrapy spiders
+      - name: Run scrapers — all markets
         run: |
           export PYTHONPATH=$PWD
-          scrapy version
-          scrapy list
-
-      # ─────────────────────────────────────────────
-      # DEBUG: import direct du spider
-      # ─────────────────────────────────────────────
-      - name: Debug spider import
-        run: |
-          export PYTHONPATH=$PWD
-          python -c "import marketpulse.spiders.market_scraper; print('Spider import OK')"
-
-      # ─────────────────────────────────────────────
-      # Run scraper
-      # ─────────────────────────────────────────────
-      - name: Run scraper — all markets
-        run: |
-          export PYTHONPATH=$PWD
-          scrapy crawl market_scraper -a market=all
+          scrapy crawl crypto_spider
+          scrapy crawl us_stocks_spider
+          scrapy crawl euronext_spider
         env:
           PYTHONDONTWRITEBYTECODE: "1"
 
       # ─────────────────────────────────────────────
-      # Commit & push
+      # Commit & push updated data
       # ─────────────────────────────────────────────
       - name: Commit & push updated data
         run: |
           git config user.email "eric56892@gmail.com"
           git config user.name "Adieali"
+
           git add web/data/stocks.json web/data/crypto.json web/data/meta.json
+
           if git diff --staged --quiet; then
             echo "Aucune modification — données déjà à jour."
           else
