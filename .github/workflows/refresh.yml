@@ -46,8 +46,8 @@ jobs:
         run: |
           export PYTHONPATH=$PWD
           scrapy crawl crypto
-          scrapy crawl us_stocks_spider
-          scrapy crawl euronext_spider
+          scrapy crawl us_stocks
+          scrapy crawl euronext
         env:
           PYTHONDONTWRITEBYTECODE: "1"
 
