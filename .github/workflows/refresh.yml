@@ -45,7 +45,7 @@ jobs:
       - name: Run scrapers — all markets
         run: |
           export PYTHONPATH=$PWD
-          scrapy crawl crypto_spider
+          scrapy crawl crypto
           scrapy crawl us_stocks_spider
           scrapy crawl euronext_spider
         env:
