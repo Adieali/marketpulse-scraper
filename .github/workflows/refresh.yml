@@ -1,10 +1,10 @@
-﻿name: Refresh Market Data
+name: Refresh Market Data
 
 on:
   schedule:
     - cron: "0 6 * * *"   # Tous les jours à 6h UTC
     - cron: "0 18 * * *"  # Tous les jours à 18h UTC
-  workflow_dispatch:        # Déclenchement manuel possible
+  workflow_dispatch:
 
 jobs:
   refresh:
@@ -13,28 +13,78 @@ jobs:
       contents: write
 
     steps:
+      # ─────────────────────────────────────────────
+      # Checkout
+      # ─────────────────────────────────────────────
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # ─────────────────────────────────────────────
+      # Python setup
+      # ─────────────────────────────────────────────
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
 
+      # ─────────────────────────────────────────────
+      # Install deps
+      # ─────────────────────────────────────────────
       - name: Install dependencies
         run: |
+          python -V
           pip install --upgrade pip
           pip install -r requirements.txt
           pip install -e .
           playwright install chromium --with-deps
 
+      # ─────────────────────────────────────────────
+      # DEBUG: structure du projet
+      # ─────────────────────────────────────────────
+      - name: Debug project structure
+        run: |
+          echo "=== TREE ==="
+          ls -R
+
+      # ─────────────────────────────────────────────
+      # DEBUG: vérifier que le module est importable
+      # ─────────────────────────────────────────────
+      - name: Debug Python imports
+        run: |
+          python -c "import sys; print(sys.path)"
+          python -c "import marketpulse; print('marketpulse import OK')"
+
+      # ─────────────────────────────────────────────
+      # DEBUG: vérifier spiders détectés
+      # ─────────────────────────────────────────────
+      - name: Debug Scrapy spiders
+        run: |
+          export PYTHONPATH=$PWD
+          scrapy version
+          scrapy list
+
+      # ─────────────────────────────────────────────
+      # DEBUG: import direct du spider
+      # ─────────────────────────────────────────────
+      - name: Debug spider import
+        run: |
+          export PYTHONPATH=$PWD
+          python -c "import marketpulse.spiders.market_scraper; print('Spider import OK')"
+
+      # ─────────────────────────────────────────────
+      # Run scraper
+      # ─────────────────────────────────────────────
       - name: Run scraper — all markets
         run: |
-          python -m scrapy crawl market_scraper -a market=all
+          export PYTHONPATH=$PWD
+          scrapy crawl market_scraper -a market=all
         env:
           PYTHONDONTWRITEBYTECODE: "1"
 
+      # ─────────────────────────────────────────────
+      # Commit & push
+      # ─────────────────────────────────────────────
       - name: Commit & push updated data
         run: |
           git config user.email "eric56892@gmail.com"
