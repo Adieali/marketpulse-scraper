@@ -1,8 +1,7 @@
 ﻿"""
 MarketPulse — Euronext / EU Stocks Spider
 Collects quotes and fundamentals for French & European blue-chips
-using yfinance (Yahoo Finance tickers with .PA / .DE / .MI suffixes)
-+ Boursorama HTML scraping for additional FR market data.
+using yfinance (Yahoo Finance tickers with .PA / .DE / .MI suffixes).
 """
 
 import logging
@@ -10,7 +9,6 @@ from datetime import datetime, timezone
 
 import scrapy
 import yfinance as yf
-from scrapy_playwright.page import PageMethod
 
 from marketpulse.items import StockQuoteItem, StockFundamentalsItem, HistoricalPriceItem
 
@@ -51,25 +49,6 @@ class EuronextSpider(scrapy.Spider):
         self.period = period
 
     async def start(self):
-        yield scrapy.Request(
-            url="https://www.boursorama.com/bourse/actions/cotations/",
-            callback=self.fetch_yfinance,
-            meta={
-                "playwright": True,
-                "playwright_include_page": False,
-                "playwright_page_methods": [
-                    PageMethod("wait_for_load_state", "domcontentloaded"),
-                ],
-            },
-            dont_filter=True,
-            errback=self.on_error,
-        )
-
-    def on_error(self, failure):
-        logger.warning(f"Boursorama unreachable, falling back to yfinance: {failure}")
-        return self._fetch_all_yfinance()
-
-    def fetch_yfinance(self, response):
         yield from self._fetch_all_yfinance()
 
     def _fetch_all_yfinance(self):
