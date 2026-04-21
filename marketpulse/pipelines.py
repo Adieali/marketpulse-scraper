@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from itemadapter import ItemAdapter
+from scrapy.exceptions import DropItem
 
 from marketpulse.items import (
     StockQuoteItem,
@@ -31,13 +32,13 @@ class ValidationPipeline:
 
         if isinstance(item, (StockQuoteItem, StockFundamentalsItem)):
             if not adapter.get("ticker"):
-                raise Exception(f"Dropped: missing ticker in {type(item).__name__}")
+                raise DropItem(f"Missing ticker in {type(item).__name__}")
         elif isinstance(item, CryptoItem):
             if not adapter.get("coin_id"):
-                raise Exception("Dropped: missing coin_id in CryptoItem")
+                raise DropItem("Missing coin_id in CryptoItem")
         elif isinstance(item, HistoricalPriceItem):
             if not adapter.get("ticker") or not adapter.get("date"):
-                raise Exception("Dropped: missing ticker/date in HistoricalPriceItem")
+                raise DropItem("Missing ticker/date in HistoricalPriceItem")
 
         return item
 
@@ -75,20 +76,27 @@ class DuplicateFilterPipeline:
         self._seen_hist: set = set()
 
     def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
         if isinstance(item, StockQuoteItem):
-            key = (item["ticker"], item.get("scraped_at", "")[:10])
+            scraped_at = adapter.get("scraped_at") or ""
+            key = (adapter.get("ticker"), scraped_at[:10])
             if key in self._seen_quotes:
-                raise Exception(f"Duplicate quote: {key}")
+                raise DropItem(f"Duplicate quote: {key}")
             self._seen_quotes.add(key)
         elif isinstance(item, HistoricalPriceItem):
-            key = (item["ticker"], item["date"])
+            key = (adapter.get("ticker"), adapter.get("date"))
             if key in self._seen_hist:
-                raise Exception(f"Duplicate history: {key}")
+                raise DropItem(f"Duplicate history: {key}")
             self._seen_hist.add(key)
+        elif isinstance(item, CryptoItem):
+            key = (adapter.get("coin_id"), (adapter.get("scraped_at") or "")[:10])
+            if key in self._seen_quotes:
+                raise DropItem(f"Duplicate crypto: {key}")
+            self._seen_quotes.add(key)
         return item
 
 
-# ── 4. SQLite Pipeline ────────────────────────────────────────────────────────
+# ── 4. SQLite Pipeline ────────────────────────────────────────────
 class SQLitePipeline:
     def __init__(self, db_path):
         self.db_path = db_path

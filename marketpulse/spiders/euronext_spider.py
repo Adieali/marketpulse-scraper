@@ -1,4 +1,4 @@
-"""
+﻿"""
 MarketPulse — Euronext / EU Stocks Spider
 Collects quotes and fundamentals for French & European blue-chips
 using yfinance (Yahoo Finance tickers with .PA / .DE / .MI suffixes)
@@ -67,7 +67,7 @@ class EuronextSpider(scrapy.Spider):
 
     def on_error(self, failure):
         logger.warning(f"Boursorama unreachable, falling back to yfinance: {failure}")
-        yield from self._fetch_all_yfinance()
+        return self._fetch_all_yfinance()
 
     def fetch_yfinance(self, response):
         yield from self._fetch_all_yfinance()

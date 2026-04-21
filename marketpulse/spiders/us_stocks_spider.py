@@ -112,7 +112,7 @@ class USStocksSpider(scrapy.Spider):
                         high=round(float(row["High"]), 4),
                         low=round(float(row["Low"]), 4),
                         close=round(float(row["Close"]), 4),
-                        adj_close=round(float(row.get("Close", row["Close"])), 4),
+                        adj_close=round(float(row.get("Adj Close", row["Close"])), 4),
                         volume=int(row["Volume"]),
                     )
 

@@ -31,13 +31,21 @@ HTTPCACHE_EXPIRATION_SECS = 3600
 HTTPCACHE_DIR = ".scrapy/httpcache"
 
 # ── Playwright ────────────────────────────────────────────────────────────────
+# Handlers must be declared globally for scrapy-playwright to initialise,
+# but only requests with meta={"playwright": True} will actually use a browser.
 DOWNLOAD_HANDLERS = {
     "http":  "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
     "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
 }
 PLAYWRIGHT_BROWSER_TYPE = "chromium"
-PLAYWRIGHT_LAUNCH_OPTIONS = {"headless": True, "args": ["--no-sandbox"]}
+PLAYWRIGHT_LAUNCH_OPTIONS = {
+    "headless": True,
+    "args": ["--no-sandbox", "--disable-dev-shm-usage"],
+}
+# Required by scrapy-playwright
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+# Limit concurrent Playwright contexts to avoid memory pressure in CI
+PLAYWRIGHT_MAX_CONTEXTS = 2
 
 # ── Middlewares ───────────────────────────────────────────────────────────────
 DOWNLOADER_MIDDLEWARES = {
