@@ -1,10 +1,13 @@
-name: Refresh Market Data
+﻿name: Refresh Market Data
 
 on:
   schedule:
-    - cron: "0 6 * * *"   # Tous les jours à 6h UTC
-    - cron: "0 18 * * *"  # Tous les jours à 18h UTC
+    - cron: "0 6 * * *"   # Tous les jours a 6h UTC
+    - cron: "0 18 * * *"  # Tous les jours a 18h UTC
   workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   refresh:
@@ -62,7 +65,7 @@ jobs:
           git add web/data/stocks.json web/data/crypto.json web/data/meta.json
 
           if git diff --staged --quiet; then
-            echo "Aucune modification — données déjà à jour."
+            echo "Aucune modification — donnees deja a jour."
           else
             git commit -m "chore: refresh market data $(date -u '+%Y-%m-%d %H:%M UTC')"
             git push
