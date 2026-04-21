@@ -1,4 +1,4 @@
-"""
+﻿"""
 MarketPulse — US Stocks Spider
 Collects quotes, fundamentals and historical prices for US tickers
 using Yahoo Finance (yfinance library + HTML fallback via Scrapy).
@@ -38,7 +38,7 @@ class USStocksSpider(scrapy.Spider):
             self.tickers = DEFAULT_US_TICKERS
         self.period = period  # e.g. "1y", "6mo", "3mo"
 
-    def start_requests(self):
+    async def start(self):
         """Use a dummy request to trigger the spider; actual data via yfinance."""
         yield scrapy.Request(
             url="https://finance.yahoo.com",

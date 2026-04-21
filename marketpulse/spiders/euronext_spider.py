@@ -50,7 +50,7 @@ class EuronextSpider(scrapy.Spider):
             self.tickers = DEFAULT_EU_TICKERS
         self.period = period
 
-    def start_requests(self):
+    async def start(self):
         yield scrapy.Request(
             url="https://www.boursorama.com/bourse/actions/cotations/",
             callback=self.fetch_yfinance,

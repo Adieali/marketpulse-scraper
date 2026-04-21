@@ -1,4 +1,4 @@
-"""
+﻿"""
 MarketPulse — Crypto Spider
 Fetches cryptocurrency data from CoinGecko public API (no key required).
 Covers top coins + historical OHLCV data.
@@ -29,8 +29,15 @@ class CryptoSpider(scrapy.Spider):
     name = "crypto"
     custom_settings = {
         "ROBOTSTXT_OBEY": False,
-        "DOWNLOAD_DELAY": 1.5,   # CoinGecko rate: ~30 req/min free
+        # CoinGecko free tier: ~10 req/min on OHLC endpoint.
+        # Force fully-sequential requests (concurrency=1, delay=6s -> 10 req/min).
+        "DOWNLOAD_DELAY": 6.0,
+        "RANDOMIZE_DOWNLOAD_DELAY": False,
+        "CONCURRENT_REQUESTS": 1,
+        "CONCURRENT_REQUESTS_PER_DOMAIN": 1,
+        "AUTOTHROTTLE_ENABLED": False,   # let the fixed delay govern
         "RETRY_HTTP_CODES": [429, 500, 502, 503, 504],
+        "RETRY_TIMES": 5,
     }
 
     def __init__(self, coins=None, history_days="365", *args, **kwargs):
@@ -38,7 +45,7 @@ class CryptoSpider(scrapy.Spider):
         self.coins = coins.split(",") if coins else DEFAULT_COINS
         self.history_days = history_days
 
-    def start_requests(self):
+    async def start(self):
         # Step 1: bulk market data for all default coins
         ids_param = "%2C".join(DEFAULT_COINS)
         url = (
