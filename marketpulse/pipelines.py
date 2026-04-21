@@ -1,4 +1,4 @@
-"""
+﻿"""
 MarketPulse Scraper — Data Pipelines
 Validation → Cleaning → Deduplication → SQLite → CSV → JSON → WebExport
 """
@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 # ── 1. Validation Pipeline ────────────────────────────────────────────────────
 class ValidationPipeline:
-    def process_item(self, item, spider):
+    def process_item(self, item):
         adapter = ItemAdapter(item)
 
         if isinstance(item, (StockQuoteItem, StockFundamentalsItem)):
@@ -45,7 +45,7 @@ class ValidationPipeline:
 
 # ── 2. Cleaning Pipeline ──────────────────────────────────────────────────────
 class CleaningPipeline:
-    def process_item(self, item, spider):
+    def process_item(self, item):
         adapter = ItemAdapter(item)
 
         for field in adapter.field_names():
@@ -75,7 +75,7 @@ class DuplicateFilterPipeline:
         self._seen_quotes: set = set()
         self._seen_hist: set = set()
 
-    def process_item(self, item, spider):
+    def process_item(self, item):
         adapter = ItemAdapter(item)
         if isinstance(item, StockQuoteItem):
             scraped_at = adapter.get("scraped_at") or ""
@@ -107,13 +107,13 @@ class SQLitePipeline:
     def from_crawler(cls, crawler):
         return cls(db_path=crawler.settings.get("SQLITE_PATH", "data/marketpulse.db"))
 
-    def open_spider(self, spider):
+    def open_spider(self):
         Path(self.db_path).parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(self.db_path)
         self.cursor = self.conn.cursor()
         self._create_tables()
 
-    def close_spider(self, spider):
+    def close_spider(self):
         if self.conn:
             self.conn.commit()
             self.conn.close()
@@ -165,7 +165,7 @@ class SQLitePipeline:
         """)
         self.conn.commit()
 
-    def process_item(self, item, spider):
+    def process_item(self, item):
         if isinstance(item, StockQuoteItem):
             self.cursor.execute("""
                 INSERT OR REPLACE INTO stock_quotes
@@ -242,7 +242,7 @@ class CSVPipeline:
     def from_crawler(cls, crawler):
         return cls(output_dir=crawler.settings.get("OUTPUT_DIR", "data"))
 
-    def open_spider(self, spider):
+    def open_spider(self):
         Path(self.output_dir).mkdir(parents=True, exist_ok=True)
         ts = datetime.now().strftime("%Y%m%d_%H%M")
         for name, fields in [
@@ -256,11 +256,11 @@ class CSVPipeline:
             self._writers[name] = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
             self._writers[name].writeheader()
 
-    def close_spider(self, spider):
+    def close_spider(self):
         for f in self._files.values():
             f.close()
 
-    def process_item(self, item, spider):
+    def process_item(self, item):
         if isinstance(item, StockQuoteItem):
             self._writers["quotes"].writerow(dict(ItemAdapter(item)))
         elif isinstance(item, StockFundamentalsItem):
@@ -280,17 +280,17 @@ class JSONPipeline:
     def from_crawler(cls, crawler):
         return cls(output_dir=crawler.settings.get("OUTPUT_DIR", "data"))
 
-    def open_spider(self, spider):
+    def open_spider(self):
         Path(self.output_dir).mkdir(parents=True, exist_ok=True)
         for name in ("quotes", "fundamentals", "history", "crypto"):
             path = os.path.join(self.output_dir, f"{name}.jsonl")
             self._files[name] = open(path, "a", encoding="utf-8")
 
-    def close_spider(self, spider):
+    def close_spider(self):
         for f in self._files.values():
             f.close()
 
-    def process_item(self, item, spider):
+    def process_item(self, item):
         mapping = {
             StockQuoteItem:       "quotes",
             StockFundamentalsItem:"fundamentals",
@@ -322,10 +322,10 @@ class WebExportPipeline:
     def from_crawler(cls, crawler):
         return cls(web_data_dir=crawler.settings.get("WEB_DATA_DIR", "web/data"))
 
-    def open_spider(self, spider):
+    def open_spider(self):
         Path(self.web_data_dir).mkdir(parents=True, exist_ok=True)
 
-    def process_item(self, item, spider):
+    def process_item(self, item):
         if isinstance(item, StockQuoteItem):
             self._quotes[item["ticker"]] = dict(ItemAdapter(item))
         elif isinstance(item, StockFundamentalsItem):
@@ -337,7 +337,7 @@ class WebExportPipeline:
             self._crypto.append(dict(ItemAdapter(item)))
         return item
 
-    def close_spider(self, spider):
+    def close_spider(self):
         # Build enriched stock objects with indicators
         stocks_output = []
         for ticker, quote in self._quotes.items():
