@@ -49,7 +49,8 @@ class EuronextSpider(scrapy.Spider):
         self.period = period
 
     async def start(self):
-        yield from self._fetch_all_yfinance()
+        for item in self._fetch_all_yfinance():
+            yield item
 
     def _fetch_all_yfinance(self):
         now = datetime.now(timezone.utc).isoformat()
