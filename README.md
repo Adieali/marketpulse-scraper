@@ -9,7 +9,7 @@
 [![Netlify](https://img.shields.io/badge/Netlify-deployed-00C7B7?logo=netlify)](https://netlify.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-🌐 **Live Dashboard**: [marketpulse.netlify.app](https://marketpulse.netlify.app)
+🌐 **Live Dashboard**: (https://marketpulse-scraper.vercel.app/)
 
 ---
 
